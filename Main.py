@@ -14,22 +14,22 @@ def print_board(board):  # Вывод поля
 def check_winner(board):
     # Проверка строк
     for row in board:
-        if row[0] == row[1] == row[2] != ".":
+        if row[0] == row[1] == row[2] != " ":
             return row[0]
 
     # Проверка столбцов
     for col in range(3):
-        if board[0][col] == board[1][col] == board[2][col] != ".":
+        if board[0][col] == board[1][col] == board[2][col] != " ":
             return board[0][col]
 
     # Проверка диагоналей
-    if board[0][0] == board[1][1] == board[2][2] != ".":
+    if board[0][0] == board[1][1] == board[2][2] != " ":
         return board[0][0]
-    if board[0][2] == board[1][1] == board[2][0] != ".":
+    if board[0][2] == board[1][1] == board[2][0] != " ":
         return board[0][2]
 
     
-    if all(cel != "." for row in board for cel in row):    # Проверка на ничью
+    if all(cel != " " for row in board for cel in row):    # Проверка на ничью
         return "Dr"
 
     return None
@@ -40,11 +40,11 @@ def computer_move(board, computer_symbol):
 
     for i in range(3):  # Проверка на возможность победы компьютера
         for j in range(3):
-            if board[i][j] == ".":
+            if board[i][j] == " ":
                 board[i][j] = computer_symbol
                 if check_winner(board) == computer_symbol:
                     return (i, j)
-                board[i][j] = "."
+                board[i][j] = " "
 
     player_symbol = (
         "X" if computer_symbol == "O" else "O"
@@ -58,13 +58,13 @@ def computer_move(board, computer_symbol):
                     return (i, j)
                 board[i][j] = "."
 
-    if board[1][1] == ".":  # Если центр свободен, занимаем его
+    if board[1][1] == " ":  # Если центр свободен, занимаем его
         return (1, 1)
 
     empty_cells = []  # Иначе случайный ход
     for i in range(3):
         for j in range(3):
-            if board[i][j] == ".":
+            if board[i][j] == " ":
                 empty_cells.append((i, j))
 
     return random.choice(empty_cells)
@@ -80,9 +80,9 @@ def play_game():  # основа
         computer_symbol = "O" if player_symbol == "X" else "X"
 
         board = [
-            [".", ".", "."],
-            [".", ".", "."],
-            [".", ".", "."],
+            [" ", " ", " "],
+            [" ", " ", " "],
+            [" ", " ", " "],
         ]  # Инициализация доски
 
         turn = (
@@ -103,7 +103,7 @@ def play_game():  # основа
                     ):
                         row = ord(move[0]) - ord("A")
                         col = int(move[1]) - 1
-                        if board[row][col] == ".":
+                        if board[row][col] == " ":
                             board[row][col] = player_symbol
                             break
                         else:
