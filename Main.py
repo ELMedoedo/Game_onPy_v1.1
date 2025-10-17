@@ -51,12 +51,12 @@ def computer_move(board, computer_symbol):
     )  # проверка на выйгрыш игнрока
     for i in range(3):
         for j in range(3):
-            if board[i][j] == ".":
+            if board[i][j] == " ":
                 board[i][j] = player_symbol
                 if check_winner(board) == player_symbol:
                     board[i][j] = computer_symbol
                     return (i, j)
-                board[i][j] = "."
+                board[i][j] = " "
 
     if board[1][1] == " ":  # Если центр свободен, занимаем его
         return (1, 1)
